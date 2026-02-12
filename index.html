@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soluciones Informáticas Venezuela | NextGen IT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #00f2c3; /* Verde Neon */
+            --secondary-color: #fd0054; /* Rojo/Rosado Neon */
+            --dark-bg: #0b0c10;
+            --card-bg: rgba(31, 40, 51, 0.9);
+            --text-light: #c5c6c7;
+        }
+
+        /* --- 1. FONDO GLOBAL (MAPA) --- */
+        body {
+            /* BUSCA ESTA LÍNEA DE ABAJO Y PON EL LINK DE TU MAPA */
+            background: url('(AQUI_PEGA_EL_LINK_DE_TU_MAPA_DE_FONDO.jpg)') no-repeat center center fixed;
+            
+            background-size: cover;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Capa oscura para que el texto se lea bien sobre el mapa */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 12, 16, 0.85); /* Oscuridad al 85% */
+            z-index: -1;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            animation: fadeInDown 1.5s ease;
+        }
+
+        @media (min-width: 992px) { .hero-title { font-size: 5rem; } }
+
+        .hero-subtitle {
+            font-family: 'Roboto Mono', monospace;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* Botón Neon */
+        .btn-neon {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 15px 40px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.3s;
+            box-shadow: 0 0 10px rgba(0, 242, 195, 0.1);
+        }
+
+        .btn-neon:hover {
+            background: var(--primary-color);
+            color: var(--dark-bg);
+            box-shadow: 0 0 20px rgba(0, 242, 195, 0.8);
+        }
+
+        /* Secciones Generales */
+        .section-padding { padding: 80px 0; }
+        
+        .section-title {
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: ''; width: 60px; height: 4px;
+            background: var(--secondary-color);
+            position: absolute; bottom: -10px; left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Tarjetas de Servicios */
+        .service-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(5px);
+            padding: 40px 20px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            height: 100%;
+            border-bottom: 3px solid transparent;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-bottom: 3px solid var(--primary-color);
+        }
+        .icon-box { font-size: 3rem; color: var(--primary-color); margin-bottom: 20px; }
+
+        /* --- 2. ESTILOS DEL CARRUSEL ARRASTRABLE (DRAGGABLE) --- */
+        .team-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 20px 5%;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE */
+            cursor: grab; /* Manito abierta */
+            user-select: none;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory; 
+        }
+        
+        .team-scroll-container::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+        .team-scroll-container.active {
+            cursor: grabbing; /* Manito cerrada al arrastrar */
+            scroll-snap-type: none; 
+        }
+
+        .carousel-card-container {
+            flex: 0 0 85%; /* Tamaño Móvil */
+            max-width: 350px;
+            scroll-snap-align: center;
+        }
+        @media (min-width: 768px) { .carousel-card-container { flex: 0 0 45%; } } /* Tablet */
+        @media (min-width: 992px) { .carousel-card-container { flex: 0 0 30%; } } /* PC */
+
+        /* Diseño de la Tarjeta de Equipo */
+        .team-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s;
+            height: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Esto ayuda a que el arrastre funcione suave sobre la imagen */
+        .team-card img { pointer-events: none; }
+
+        .team-img-wrapper { height: 250px; overflow: hidden; position: relative; }
+        .team-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .team-role {
+            color: var(--secondary-color);
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer { background: rgba(0, 0, 0, 0.9); padding: 50px 0; border-top: 1px solid #333; }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(11,12,16,0.95); backdrop-filter: blur(10px);">
+        <div class="container">
+            <a class="navbar-brand" href="#" style="font-weight: 900; color: #fff;">DEV<span style="color:var(--primary-color);">SEC</span> VZLA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#servicios">Soluciones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#equipo">El Equipo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="inicio" class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h1 class="hero-title">Ingeniería Venezolana</h1>
+                    <p class="hero-subtitle">&lt; Desarrollo | Ciberseguridad | Redes /&gt;</p>
+                    <p class="lead mb-5 text-white" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">
+                        Transformamos el país con código limpio, infraestructura robusta y seguridad ofensiva.
+                    </p>
+                    <a href="#equipo" class="btn btn-neon">Ver Equipo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicios" class="section-padding">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Nuestras Soluciones</h2>
+                <p class="mb-5 text-white">Tecnología de punta aplicada a necesidades reales.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card text-center">
+                        <div class="icon-box"><i class="fas fa-code"></i></div>
+                        <h4>Desarrollo Full Stack</h4>
+                        <p>Arquitectura de software escalable. Laravel, PHP y tecnologías modernas.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card text-center">
+                        <div class="icon-box"><i class="fas fa-user-shield"></i></div>
+                        <h4>Ciberseguridad</h4>
+                        <p>Auditorías de seguridad, protección SQL y defensa de infraestructura crítica.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card text-center">
+                        <div class="icon-box"><i class="fas fa-network-wired"></i></div>
+                        <h4>Redes & Infraestructura</h4>
+                        <p>Diseño, implementación y mantenimiento de redes corporativas optimizadas.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card text-center">
+                        <div class="icon-box"><i class="fas fa-language"></i></div>
+                        <h4>Localización Técnica</h4>
+                        <p>Puente directo USA-Latam. Traducción técnica especializada.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="equipo" class="section-padding" style="background: rgba(21, 25, 30, 0.8);">
+        <div class="container-fluid">
+            <div class="text-center">
+                <h2 class="section-title">Junta Directiva & Especialistas</h2>
+                <p class="text-white mb-2">Conoce a los 7 pilares de nuestra empresa.</p>
+                <p class="small text-muted mb-4"><i class="fas fa-hand-pointer"></i> Arrastra para ver más</p>
+            </div>
+
+            <div class="team-scroll-container" id="teamSlider">
+                
+                <div class="carousel-card-container">
+                    <div class="team-card border border-primary">
+                        <div class="team-img-wrapper">
+                            <img src="pic/DiegoCeo.jpeg" alt="Diego Campos">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="h4 text-white">Diego Campos</h3>
+                            <p class="team-role">CEO & Fundador</p>
+                            <p class="small mb-0 text-white-50">Visionario con 11 años de experiencia. Líder en orquestación de proyectos.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-card-container">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                             <img src="pic/Crisco-ceo.jpeg" alt="Co-CEO">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="h4 text-white">Co-CEO</h3>
+                            <p class="team-role">Lead Developer</p>
+                            <p class="small mb-0 text-white-50">Arquitecto de software encargado de convertir lógica compleja en soluciones.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-card-container">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                             <img src="pic/IsbeRed.jpeg" alt="Tutor Ciberseguridad">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="h4 text-white">Ing Isbeidy Arteaga</h3>
+                            <p class="team-role">Corazon de la Ciberseguridad/p>
+                            <p class="small mb-0 text-white-50">Experta en SQL y simulaciones de ataque. Garantiza código impenetrable.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-card-container">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                             <img src="pic/JuvelRed.jpeg" alt="Colega Redes 1">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="h4 text-white">Juvel Tesla</h3>
+                            <p class="team-role">Infraestructura</p>
+                            <p class="small mb-0 text-white-50">Despliegue físico y lógico de redes corporativas de alta demanda.</p>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="carousel-card-container">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                             <img src="pic/DieRed.jpeg" alt="Colega Redes 2">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="h4 text-white">Diederick</h3>
+                            <p class="team-role">Telecomunicaciones y Ciberseguridad en fortinet</p>
+                            <p class="small mb-0 text-white-50">Experto en conectividad inalámbrica y optimización de señal.</p>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="carousel-card-container">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                             <img src="pic/Robertt.jpeg" alt="Colega Redes 3">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="h4 text-white"></h3>
+                            <p class="team-role">Arquitectura de Red</p>
+                            <p class="small mb-0 text-white-50">Diseño de topologías de red seguras y escalables en Java.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-card-container">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                             <img src="" alt="Traductor Anonimo">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="h4 text-white">`Profe Anonimo</h3>
+                            <p class="team-role text-warning">International Liaison</p>
+                            <p class="small mb-0 text-white-50">Puente técnico entre tecnologías anglosajonas y Latam versatiles.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="flex: 0 0 50px;"></div>
+
+            </div> </div>
+    </section>
+
+    <section class="section-padding text-center" style="background: rgba(11, 12, 16, 0.9);" id="contacto">
+        <div class="container">
+            <h2 class="text-white mb-4">El Camino de la Sabiduría Digital</h2>
+            <p class="lead text-light mb-5 w-75 mx-auto" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">
+                Entregamos conocimiento, estabilidad y futuro. 
+                Desde Venezuela para el mundo.
+            </p>
+            <a href="mailto:ceo@tuempresa.com" class="btn btn-neon btn-lg">Contáctanos Ahora</a>
+        </div>
+    </section>
+
+    <footer class="text-center text-white">
+        <div class="container">
+            <p class="mb-2">&copy; 2026 Soluciones Informáticas Venezuela.</p>
+            <p class="small text-muted">CEO: Diego Campos</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const slider = document.getElementById('teamSlider');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active'); 
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.remove('active');
+        });
+
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.classList.remove('active');
+        });
+
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return; 
+            e.preventDefault(); 
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2; 
+            slider.scrollLeft = scrollLeft - walk;
+        });
+    </script>
+</body>
+</html>
