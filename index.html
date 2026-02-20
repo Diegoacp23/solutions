@@ -15,6 +15,7 @@
             --dark-bg: #0b0c10;
             --card-bg: rgba(20, 25, 35, 0.85); /* Más oscuro y elegante */
             --text-light: #e0e0e0;
+            --text-gray-light: #b0b0b0; /* NUEVO: Gris claro para mejor contraste */
         }
 
         /* --- 1. FONDO ANIMADO "CYBER-FLOW" --- */
@@ -159,6 +160,12 @@
         }
         .icon-box { font-size: 3rem; color: var(--primary-color); margin-bottom: 20px; }
 
+        /* NUEVA CLASE PARA MEJORAR EL CONTRASTE DEL TEXTO EN LAS TARJETAS */
+        .service-desc {
+            color: var(--text-gray-light);
+            font-size: 0.875rem; /* Equivalente a .small */
+        }
+
         /* --- CAROUSEL ARRASTRABLE RESPONSIVE --- */
         .team-scroll-container {
             display: flex;
@@ -224,7 +231,7 @@
         }
 
         /* =========================================
-           ESTILOS PARA BOTONES FLOTANTES (NUEVO)
+           ESTILOS PARA BOTONES FLOTANTES
            ========================================= */
         .floating-socials {
             position: fixed;
@@ -323,28 +330,28 @@
                     <div class="service-card text-center">
                         <div class="icon-box"><i class="fas fa-code"></i></div>
                         <h4>Desarrollo Full Stack</h4>
-                        <p class="small text-muted">Arquitectura de software escalable. Laravel, PHP y tecnologías modernas.</p>
+                        <p class="service-desc">Arquitectura de software escalable. Laravel, PHP y tecnologías modernas.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <div class="service-card text-center">
                         <div class="icon-box"><i class="fas fa-user-shield"></i></div>
                         <h4>Ciberseguridad</h4>
-                        <p class="small text-muted">Auditorías de seguridad, protección SQL y defensa de infraestructura crítica.</p>
+                        <p class="service-desc">Auditorías de seguridad, protección SQL y defensa de infraestructura crítica.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <div class="service-card text-center">
                         <div class="icon-box"><i class="fas fa-network-wired"></i></div>
                         <h4>Redes & Infraestructura</h4>
-                        <p class="small text-muted">Diseño, implementación y mantenimiento de redes corporativas optimizadas.</p>
+                        <p class="service-desc">Diseño, implementación y mantenimiento de redes corporativas optimizadas.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <div class="service-card text-center">
                         <div class="icon-box"><i class="fas fa-language"></i></div>
                         <h4>Localización Técnica</h4>
-                        <p class="small text-muted">Puente directo USA-Latam. Traducción técnica especializada.</p>
+                        <p class="service-desc">Puente directo USA-Latam. Traducción técnica especializada.</p>
                     </div>
                 </div>
             </div>
@@ -355,9 +362,9 @@
         <div class="container-fluid">
             <div class="text-center">
                 <h2 class="section-title">Junta Directiva & Especialistas</h2>
-                <p class="text-white mb-2">Conoce a los 7 pilares de nuestra empresa.</p>
-                <p class="small text-muted mb-4 d-md-none"><i class="fas fa-arrow-left"></i> Desliza para ver más <i class="fas fa-arrow-right"></i></p>
-                <p class="small text-muted mb-4 d-none d-md-block"><i class="fas fa-hand-pointer"></i> Arrastra con el mouse</p>
+                <p class="mb-2" style="color: var(--text-gray-light);">Conoce a los 7 pilares de nuestra empresa.</p>
+                <p class="small mb-4 d-md-none" style="color: var(--text-gray-light);"><i class="fas fa-arrow-left"></i> Desliza para ver más <i class="fas fa-arrow-right"></i></p>
+                <p class="small mb-4 d-none d-md-block" style="color: var(--text-gray-light);"><i class="fas fa-hand-pointer"></i> Arrastra con el mouse</p>
             </div>
 
             <div class="team-scroll-container" id="teamSlider">
@@ -370,7 +377,7 @@
                         <div class="p-4">
                             <h3 class="h4 text-white">Diego Campos</h3>
                             <p class="team-role">CEO & Fundador</p>
-                            <p class="small mb-0 text-white-50">Visionario con 8 años de experiencia. Líder en orquestación de proyectos.</p>
+                            <p class="small mb-0" style="color: var(--text-gray-light);">Visionario con 8 años de experiencia. Líder en orquestación de proyectos.</p>
                         </div>
                     </div>
                 </div>
@@ -383,7 +390,7 @@
                         <div class="p-4">
                             <h3 class="h4 text-white">Cristian Rangel</h3>
                             <p class="team-role">Lead Developer</p>
-                            <p class="small mb-0 text-white-50">Arquitecto de software. Lógica compleja en soluciones simples.</p>
+                            <p class="small mb-0" style="color: var(--text-gray-light);">Arquitecto de software. Lógica compleja en soluciones simples.</p>
                         </div>
                     </div>
                 </div>
@@ -396,7 +403,7 @@
                         <div class="p-4">
                             <h3 class="h4 text-white">Ing. Isbeidy Arteaga</h3>
                             <p class="team-role">Head of Cybersecurity</p>
-                            <p class="small mb-0 text-white-50">Experta en SQL y simulaciones de ataque. Garantiza código impenetrable.</p>
+                            <p class="small mb-0" style="color: var(--text-gray-light);">Experta en SQL y simulaciones de ataque. Garantiza código impenetrable.</p>
                         </div>
                     </div>
                 </div>
@@ -409,7 +416,7 @@
                         <div class="p-4">
                             <h3 class="h4 text-white">Ing. Juvel Moreno</h3>
                             <p class="team-role">Infraestructura</p>
-                            <p class="small mb-0 text-white-50">Despliegue físico y lógico de redes corporativas de alta demanda.</p>
+                            <p class="small mb-0" style="color: var(--text-gray-light);">Despliegue físico y lógico de redes corporativas de alta demanda.</p>
                         </div>
                     </div>
                 </div>
@@ -422,7 +429,7 @@
                         <div class="p-4">
                             <h3 class="h4 text-white">Ing. Diederick Toro</h3>
                             <p class="team-role">Telecomunicaciones</p>
-                            <p class="small mb-0 text-white-50">Experto en conectividad inalámbrica y optimización de señal.</p>
+                            <p class="small mb-0" style="color: var(--text-gray-light);">Experto en conectividad inalámbrica y optimización de señal.</p>
                         </div>
                     </div>
                 </div>
@@ -435,7 +442,7 @@
                         <div class="p-4">
                             <h3 class="h4 text-white">Ing. Robert Sarabia</h3>
                             <p class="team-role">Arquitectura de Red</p>
-                            <p class="small mb-0 text-white-50">Diseño de topologías de red seguras y escalables en Java.</p>
+                            <p class="small mb-0" style="color: var(--text-gray-light);">Diseño de topologías de red seguras y escalables en Java.</p>
                         </div>
                     </div>
                 </div>
@@ -451,7 +458,7 @@
                         <div class="p-4">
                             <h3 class="h4 text-white">Prof. Oliver C.</h3>
                             <p class="team-role text-warning">International Liaison</p>
-                            <p class="small mb-0 text-white-50">Puente técnico entre tecnologías anglosajonas y Latam.</p>
+                            <p class="small mb-0" style="color: var(--text-gray-light);">Puente técnico entre tecnologías anglosajonas y Latam.</p>
                         </div>
                     </div>
                 </div>
@@ -469,14 +476,14 @@
                 Entregamos conocimiento, estabilidad y futuro. 
                 Desde Venezuela para el mundo.
             </p>
-            <a href="https://solutions-xq7k.vercel.app/" class="btn btn-neon btn-lg">Visita Nuestra Web</a>
+            <a href="mailto:ceo@tuempresa.com" class="btn btn-neon btn-lg">Contáctanos Ahora</a>
         </div>
     </section>
 
     <footer class="text-center text-white">
         <div class="container">
             <p class="mb-2">&copy; 2026 Soluciones Informáticas Venezuela.</p>
-            <p class="small text_muted">CEO: Diego Campos</p>
+            <p class="small" style="color: var(--text-gray-light);">CEO: Diego Campos</p>
         </div>
     </footer>
 
